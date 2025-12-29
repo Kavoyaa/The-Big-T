@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    
+    public AudioSource footstepsAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Movement + Jumping script
+        // (don't ask how it works I just copied from Brackeys)
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -46,5 +50,15 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        // Playing footsteps audio
+        if ((x != 0 || z != 0) && isGrounded == true)
+        {
+            footstepsAudio.enabled = true;
+        }
+        else
+        {
+            footstepsAudio.enabled = false;
+        }
     }
 }
