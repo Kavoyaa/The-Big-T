@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   destinationScene: Classroom
-  interactionText: Press E to enter.
+  interactionText: Press E to enter
   textObject: {fileID: 1997772093}
 --- !u!65 &76451205
 BoxCollider:
@@ -6418,7 +6418,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: bea93a38b71b64b598109b3a3b1a0048, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.55
+  m_Volume: 0.45
   m_Pitch: 0.85
   Loop: 1
   Mute: 0
@@ -10630,7 +10630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   destinationScene: MainMenu
-  interactionText: Press E to enter.
+  interactionText: Press E to enter
   textObject: {fileID: 1997772093}
 --- !u!65 &475239956
 BoxCollider:

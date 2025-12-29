@@ -23,8 +23,6 @@ public class TeleporterScript : MonoBehaviour
         {
             textObject.text = "";
             SceneManager.LoadScene(destinationScene, LoadSceneMode.Additive);
-            Debug.Log("scene loaded.");
-            Debug.Log(SceneManager.GetActiveScene().name);
         }
     }
 
