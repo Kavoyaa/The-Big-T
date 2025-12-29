@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Security.AccessControl;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class EnemyMovement : MonoBehaviour
 
         if (distance < killDistance)
         {
+            Cursor.lockState = CursorLockMode.None;
+            
             SceneManager.LoadScene("MainMenu");
         }
     }
