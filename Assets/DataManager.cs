@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour
     // GLOBAL VARIABLES
     // Use DataManager.instance.variableName to access/modify
     public string playerLocation = "MainMenu";
+    public float playerStamina = 100f;
 
     // These are the items that can be obtained by
     // searching bags in the classrooms
