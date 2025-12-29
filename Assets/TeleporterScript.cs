@@ -8,7 +8,6 @@ public class TeleporterScript : MonoBehaviour
     public string interactionText;
     public Text textObject;
     private bool inTrigger = false;
-    private bool inRoom = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
