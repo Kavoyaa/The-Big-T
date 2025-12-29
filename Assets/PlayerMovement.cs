@@ -1,5 +1,6 @@
 using System.IO.Compression;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     
     public AudioSource footstepsAudio;
+
+    public Volume sprintVolume; // sprint effects
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,7 +43,20 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            // sprint effect
+            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
+            controller.Move(move * (speed+5) * Time.deltaTime);
+        }
+        else
+        {
+            // sprint effect
+            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
+            controller.Move(move * speed * Time.deltaTime);
+        }
+
+        
         
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
