@@ -28,53 +28,51 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+{
+    // SAFETY CHECKS (THIS PREVENTS CRASHES)
+    if (controller == null || groundCheck == null)
+        return;
+
+    isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+    if (isGrounded && velocity.y < 0)
     {
-        // Movement + Jumping script
-        // (don't ask how it works I just copied from Brackeys)
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            // sprint effect
-            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
-            controller.Move(move * (speed+5) * Time.deltaTime);
-        }
-        else
-        {
-            // sprint effect
-            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
-            controller.Move(move * speed * Time.deltaTime);
-        }
-
-        
-        
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
-
-        // Playing footsteps audio
-        if ((x != 0 || z != 0) && isGrounded == true)
-        {
-            footstepsAudio.enabled = true;
-        }
-        else
-        {
-            footstepsAudio.enabled = false;
-        }
+        velocity.y = -2f;
     }
+
+    float x = Input.GetAxis("Horizontal");
+    float z = Input.GetAxis("Vertical");
+
+    Vector3 move = transform.right * x + transform.forward * z;
+
+    if (Input.GetKey(KeyCode.LeftShift))
+    {
+        if (sprintVolume != null)
+            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
+
+        controller.Move(move * (speed + 5) * Time.deltaTime);
+    }
+    else
+    {
+        if (sprintVolume != null)
+            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
+
+        controller.Move(move * speed * Time.deltaTime);
+    }
+
+    if (Input.GetButtonDown("Jump") && isGrounded)
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    velocity.y += gravity * Time.deltaTime;
+    controller.Move(velocity * Time.deltaTime);
+
+    // Footsteps
+    if (footstepsAudio != null)
+    {
+        footstepsAudio.enabled = (x != 0 || z != 0) && isGrounded;
+    }
+}
+
 }
