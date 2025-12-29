@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         if (sprintKeyHeld && currentStamina> 0)
         {
             // sprint effect
-            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
+            //sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
             controller.Move(move * (speed+5) * Time.deltaTime);
 
             // player is sprinting, so we decrease stamina
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // undo sprint effect
-            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
+            //sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
             controller.Move(move * speed * Time.deltaTime);
 
             // right now player isnt sprinting, so we increase stamina
