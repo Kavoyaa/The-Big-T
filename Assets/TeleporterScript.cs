@@ -27,7 +27,10 @@ public class TeleporterScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        textObject.text = interactionText;
+        if (SceneManager.GetActiveScene().name == DataManager.Instance.playerLocation)
+        {
+            textObject.text = interactionText;
+        }
         inTrigger = true;
     }
 
