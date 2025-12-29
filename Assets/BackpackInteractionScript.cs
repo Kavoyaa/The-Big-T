@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,5 +67,13 @@ public class BackpackInteractionScript : MonoBehaviour
         {
             notifText.text = "You didn't find anything of use.";
         }
+
+        StartCoroutine(RemoveNotification());
+    }
+
+    IEnumerator RemoveNotification()
+    {
+        yield return new WaitForSeconds(2f);
+        notifText.text = "";
     }
 }

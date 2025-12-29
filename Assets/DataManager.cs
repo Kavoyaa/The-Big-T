@@ -13,7 +13,6 @@ public class DataManager : MonoBehaviour
     // These are the items that can be obtained by
     // searching bags in the classrooms
     public string[] classroomItems = {"Laser", "Speaker", "Sussy Pill"};
-    // im assuming player can hold max 5 items
     public List<string> playerInventory = new List<string>();
 
     void Awake()
