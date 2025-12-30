@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     public RawImage staminaBar;
     private float currentStamina;
+    private float extraSpeed = 4f;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // 🔒 HARD SAFETY CHECKS
+        // HARD SAFETY CHECKS
         if (controller == null || groundCheck == null || staminaBar == null || sprintVolume == null)
             return;
 
@@ -45,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         // Sprint input
         sprintKeyHeld = Input.GetKey(KeyCode.LeftShift);
 
-        // 🔒 SAFE DataManager READ
+        // SAFE DataManager READ
         if (DataManager.Instance != null)
         {
             currentStamina = DataManager.Instance.playerStamina;
@@ -61,11 +62,16 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
+        if (DataManager.Instance.pillActive == true)
+        {
+            extraSpeed = 7;
+        } 
+
         // Sprinting logic
         if (sprintKeyHeld && currentStamina > 0)
         {
             sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
-            controller.Move(move * (speed + 4f) * Time.deltaTime);
+            controller.Move(move * (speed + extraSpeed) * Time.deltaTime);
             currentStamina -= staminaDrainRate * Time.deltaTime;
         }
         else

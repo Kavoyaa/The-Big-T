@@ -7,9 +7,13 @@ public class NightSceneLoadScript : MonoBehaviour
 {
 
     public Text timeText;
-
+    public Text laserText;
+    public Text pillText;
+    public Text holyText;
     public GameObject enemy;
     public GameObject wine;
+
+    public Text noItem;
     //public Transform wineTransform;
     private Vector3[] spawnPoints =
     {
@@ -38,6 +42,35 @@ public class NightSceneLoadScript : MonoBehaviour
         // Restart coroutine every time scene loads
         StopAllCoroutines();
         StartCoroutine(SwitchToGameOver());
+    }
+
+    void Update()
+    {
+        // if (!DataManager.Instance.playerInventory.Contains("Laser"))
+        // {
+        //     laserText.enabled = false;
+        // }
+
+        // if (!DataManager.Instance.playerInventory.Contains("Sussy Pill"))
+        // {
+        //     pillText.enabled = false;
+        // }
+
+        // if (!DataManager.Instance.playerInventory.Contains("Holy"))
+        // {
+        //     holyText.enabled = false;
+        // }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (DataManager.Instance.playerInventory.Contains("Sussy Pill"))
+            {
+                DataManager.Instance.pillActive = true;
+                DataManager.Instance.playerInventory.Remove("Sussy Pill");
+                noItem.text = "Consumed Sussy Pill! +4 Sprint Boost";
+                StartCoroutine(RemoveNotification());
+            }
+        }
     }
 
     IEnumerator SwitchToGameOver()
@@ -71,4 +104,11 @@ public class NightSceneLoadScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene("MainMenu");
     }
+
+    IEnumerator RemoveNotification()
+    {
+        yield return new WaitForSeconds(3f);
+        noItem.text = "";
+    }
 }
+

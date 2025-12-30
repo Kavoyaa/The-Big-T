@@ -10,10 +10,11 @@ public class DataManager : MonoBehaviour
     // Use DataManager.instance.variableName to access/modify
     public string playerLocation = "MainMenu";
     public float playerStamina = 100f;
+    public bool pillActive = false;
 
     // These are the items that can be obtained by
     // searching bags in the classrooms
-    public string[] classroomItems = {"Laser", "Speaker", "Sussy Pill"};
+    public string[] classroomItems = {"Sussy Pill"};
     public List<string> playerInventory = new List<string>();
 
     void Awake()
