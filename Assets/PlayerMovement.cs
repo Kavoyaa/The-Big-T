@@ -1,4 +1,3 @@
-using System.IO.Compression;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -16,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-    
+
     public AudioSource footstepsAudio;
 
     public Volume sprintVolume; // sprint effects
@@ -24,26 +23,33 @@ public class PlayerMovement : MonoBehaviour
     public float staminaDrainRate = 40f;
     public float staminaRegenRate = 10f;
     private bool sprintKeyHeld;
+
     public RawImage staminaBar;
     private float currentStamina;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //currentStamina = maxStamina;
+        // Safe default in case DataManager does not exist
+        currentStamina = maxStamina;
     }
 
-    // Update is called once per frame
     void Update()
-    {   
-        // SAFETY CHECKS (THIS PREVENTS CRASHES)
-        if (controller == null || groundCheck == null) return;
+    {
+        // 🔒 HARD SAFETY CHECKS
+        if (controller == null || groundCheck == null || staminaBar == null || sprintVolume == null)
+            return;
 
-        // Movement + Jumping script
-        // (don't ask how it works I just copied from Brackeys)
+        // Ground check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        // Sprint input
         sprintKeyHeld = Input.GetKey(KeyCode.LeftShift);
-        currentStamina = DataManager.Instance.playerStamina;
+
+        // 🔒 SAFE DataManager READ
+        if (DataManager.Instance != null)
+        {
+            currentStamina = DataManager.Instance.playerStamina;
+        }
 
         if (isGrounded && velocity.y < 0)
         {
@@ -55,54 +61,38 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        // Checking condition for sprinting
-        if (sprintKeyHeld && currentStamina> 0)
+        // Sprinting logic
+        if (sprintKeyHeld && currentStamina > 0)
         {
-            // sprint effect
             sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
-            controller.Move(move * (speed+4) * Time.deltaTime);
-
-            // player is sprinting, so we decrease stamina
+            controller.Move(move * (speed + 4f) * Time.deltaTime);
             currentStamina -= staminaDrainRate * Time.deltaTime;
         }
         else
         {
-            // undo sprint effect
             sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
             controller.Move(move * speed * Time.deltaTime);
-
-            // right now player isnt sprinting, so we increase stamina
             currentStamina += staminaRegenRate * Time.deltaTime;
         }
 
-        // Correcting stamina if its out of bound
-        if (currentStamina > maxStamina)
-        {
-            currentStamina = maxStamina;
-        }
+        // Clamp stamina
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
-        if (currentStamina < 0)
-        {
-            currentStamina = 0;
-        }
+        // Update stamina UI
+        staminaBar.rectTransform.localScale = new Vector3(0.1f, currentStamina / 10f, 1f);
 
-        // Updating stamina bar
-        staminaBar.rectTransform.localScale = new Vector3(0.1f, currentStamina/10, 1f);
-
+        // Jump
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        // Gravity
         velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);
 
-        
-
-
-        // Playing footsteps audio
-        if ((x != 0 || z != 0) && isGrounded == true)
+        // Footsteps audio
+        if ((x != 0 || z != 0) && isGrounded)
         {
             footstepsAudio.enabled = true;
         }
@@ -111,6 +101,10 @@ public class PlayerMovement : MonoBehaviour
             footstepsAudio.enabled = false;
         }
 
-        DataManager.Instance.playerStamina = currentStamina;
+        // 🔒 SAFE DataManager WRITE
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.playerStamina = currentStamina;
+        }
     }
 }

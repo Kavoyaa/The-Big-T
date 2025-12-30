@@ -7,32 +7,42 @@ public class MorningSceneLoad : MonoBehaviour
 {
     public Text timeText;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-        DataManager.Instance.playerLocation = "MorningScene";
-        StartCoroutine(switchToNight());
+        // 🔥 Hard reset — retry safe
+        Time.timeScale = 1f;
+
+        // 🔒 Safe DataManager access
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.playerLocation = "MorningScene";
+        }
+
+        // 🔥 Restart coroutine every time scene loads
+        StopAllCoroutines();
+        StartCoroutine(SwitchToNight());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator SwitchToNight()
     {
-        
-    }
+        if (timeText == null)
+        {
+            Debug.LogError("timeText NOT ASSIGNED");
+            yield break;
+        }
 
-    IEnumerator switchToNight()
-    {
-        // I KNOW THERES BETTER WAYS TO DO THIS BUT IDC
-        yield return new WaitForSeconds(60f);
+        timeText.text = "2PM";
+
+        yield return new WaitForSecondsRealtime(60f);
         timeText.text = "3PM";
 
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSecondsRealtime(60f);
         timeText.text = "4PM";
 
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSecondsRealtime(60f);
         timeText.text = "5PM";
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSecondsRealtime(6f);
         SceneManager.LoadScene("MainScene");
     }
 }

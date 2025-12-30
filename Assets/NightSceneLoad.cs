@@ -1,17 +1,33 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class NightSceneLoad : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public TMP_Text timeText;
+
     void Start()
     {
-        DataManager.Instance.playerLocation = "NightScene";
-        DataManager.Instance.playerStamina = 100f;
+        Time.timeScale = 1f;
+        StartCoroutine(NightClock());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator NightClock()
     {
-        
+        string[] nightTimes =
+        {
+            "9 PM", "10 PM", "11 PM",
+            "12 AM", "1 AM", "2 AM",
+            "3 AM", "4 AM", "5 AM"
+        };
+
+        for (int i = 0; i < nightTimes.Length; i++)
+        {
+            timeText.text = nightTimes[i];
+            yield return new WaitForSecondsRealtime(60f);
+        }
+
+        SceneManager.LoadScene("MorningScene");
     }
 }
