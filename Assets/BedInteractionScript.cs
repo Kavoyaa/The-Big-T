@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class SceneUnloadScript : MonoBehaviour
+public class BedInteractionScript : MonoBehaviour
 {
-    public string interactionText;
-    public string currentSceneName;
     public Text textObject;
+    public string interactionText = "Press E to sleep";
     private bool inTrigger = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,9 +19,7 @@ public class SceneUnloadScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && inTrigger)
         {
-            textObject.text = "";
-            DataManager.Instance.playerLocation = "MorningScene";
-            SceneManager.UnloadSceneAsync(currentSceneName);
+            SceneManager.LoadScene("MainScene");
         }
     }
 
