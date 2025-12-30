@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Volume sprintVolume; // sprint effects
     public float maxStamina = 100f;
-    public float staminaDrainRate = 50f;
+    public float staminaDrainRate = 40f;
     public float staminaRegenRate = 10f;
     private bool sprintKeyHeld;
     public RawImage staminaBar;
@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
         if (sprintKeyHeld && currentStamina> 0)
         {
             // sprint effect
-            //sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
-            controller.Move(move * (speed+5) * Time.deltaTime);
+            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
+            controller.Move(move * (speed+4) * Time.deltaTime);
 
             // player is sprinting, so we decrease stamina
             currentStamina -= staminaDrainRate * Time.deltaTime;
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // undo sprint effect
-            //sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
+            sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 0f, 3f * Time.deltaTime);
             controller.Move(move * speed * Time.deltaTime);
 
             // right now player isnt sprinting, so we increase stamina
