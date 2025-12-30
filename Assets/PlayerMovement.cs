@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentStamina = maxStamina; // Updating stamina
+        //currentStamina = maxStamina;
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         // (don't ask how it works I just copied from Brackeys)
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         sprintKeyHeld = Input.GetKey(KeyCode.LeftShift);
-        //currentStamina = DataManager.Instance.playerStamina;
+        currentStamina = DataManager.Instance.playerStamina;
 
         if (isGrounded && velocity.y < 0)
         {
@@ -111,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
             footstepsAudio.enabled = false;
         }
 
-        //DataManager.Instance.playerStamina = currentStamina;
-        Debug.Log(currentStamina);
+        DataManager.Instance.playerStamina = currentStamina;
     }
 }

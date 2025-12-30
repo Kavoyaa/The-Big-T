@@ -6,6 +6,7 @@ public class NightSceneLoad : MonoBehaviour
     void Start()
     {
         DataManager.Instance.playerLocation = "NightScene";
+        DataManager.Instance.playerStamina = 100f;
     }
 
     // Update is called once per frame

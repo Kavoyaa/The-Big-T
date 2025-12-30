@@ -5445,8 +5445,8 @@ MonoBehaviour:
   footstepsAudio: {fileID: 279568654}
   sprintVolume: {fileID: 318698646}
   maxStamina: 100
-  staminaDrainRate: 100
-  staminaRegenRate: 0.5
+  staminaDrainRate: 40
+  staminaRegenRate: 10
   staminaBar: {fileID: 1533639343}
 --- !u!82 &279568654
 AudioSource:
