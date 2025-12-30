@@ -5,8 +5,14 @@ using TMPro;
 
 public class NightSceneLoad : MonoBehaviour
 {
+
     public TMP_Text timeText;
 
+    public Transform enemyTransform;
+    public Transform wineTransform;
+    public Vector3[] spawnPoints;
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Time.timeScale = 1f;
