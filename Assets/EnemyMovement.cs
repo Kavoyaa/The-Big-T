@@ -1,36 +1,30 @@
-using System.Collections;
-using System.Security.AccessControl;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 public class EnemyMovement : MonoBehaviour
 {
     public Transform target;
     public NavMeshAgent enemy;
-    public float updateSpeed = 0.1f;
     public float killDistance = 10f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    bool hasKilled = false; // prevents multiple scene loads
 
-    // Update is called once per frame
     void Update()
     {
         enemy.SetDestination(target.position);
+
         float distance = Vector3.Distance(target.position, transform.position);
 
-        if (distance < killDistance)
+        if (distance < killDistance && !hasKilled)
         {
+            hasKilled = true;
+
+            Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.None;
-            
-            SceneManager.LoadScene("MainMenu");
+            Cursor.visible = true;
+
+            SceneManager.LoadScene("GameOver");
         }
     }
-
-
 }
