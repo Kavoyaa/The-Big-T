@@ -10784,7 +10784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb052c489cbc5a5f0811dbf9d7f8dc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  destinationScene: MainMenu
+  destinationScene: Bedroom
   interactionText: Press E to enter
   textObject: {fileID: 1997772093}
 --- !u!65 &475239956

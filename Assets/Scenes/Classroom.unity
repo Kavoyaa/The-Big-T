@@ -3525,6 +3525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   interactionText: Press E to leave
+  currentSceneName: Classroom
   textObject: {fileID: 163597429}
 --- !u!1001 &543142231
 PrefabInstance:
