@@ -9,16 +9,15 @@ public class MorningSceneLoad : MonoBehaviour
 
     void OnEnable()
     {
-        // 🔥 Hard reset — retry safe
+        // Hard reset — retry safe
         Time.timeScale = 1f;
 
-        // 🔒 Safe DataManager access
         if (DataManager.Instance != null)
         {
             DataManager.Instance.playerLocation = "MorningScene";
         }
 
-        // 🔥 Restart coroutine every time scene loads
+        // Restart coroutine every time scene loads
         StopAllCoroutines();
         StartCoroutine(SwitchToNight());
     }
