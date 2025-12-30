@@ -5614,6 +5614,7 @@ MonoBehaviour:
     m_Bits: 8
   footstepsAudio: {fileID: 279568654}
   sprintVolume: {fileID: 2102492466}
+  extraSprintSpeed: 4
   maxStamina: 100
   staminaDrainRate: 50
   staminaRegenRate: 10
@@ -10605,7 +10606,7 @@ Transform:
   m_GameObject: {fileID: 458039395}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -96.634, y: -1.79147, z: -34.32066}
+  m_LocalPosition: {x: -44.634003, y: -1.79147, z: -17.82066}
   m_LocalScale: {x: 0.5266861, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

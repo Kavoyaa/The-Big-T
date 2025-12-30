@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource footstepsAudio;
 
     public Volume sprintVolume; // sprint effects
+    public float extraSprintSpeed = 4f;
     public float maxStamina = 100f;
     public float staminaDrainRate = 40f;
     public float staminaRegenRate = 10f;
@@ -56,11 +57,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
 
         // Checking condition for sprinting
-        if (sprintKeyHeld && currentStamina> 0)
+        if (sprintKeyHeld && currentStamina > 0 && (DataManager.Instance.playerLocation == "MainScene" || DataManager.Instance.playerLocation == "MorningScene"))
         {
             // sprint effect
             sprintVolume.weight = Mathf.MoveTowards(sprintVolume.weight, 1f, 2f * Time.deltaTime);
-            controller.Move(move * (speed+4) * Time.deltaTime);
+            controller.Move(move * (speed+extraSprintSpeed) * Time.deltaTime);
 
             // player is sprinting, so we decrease stamina
             currentStamina -= staminaDrainRate * Time.deltaTime;
