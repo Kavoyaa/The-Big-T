@@ -2,7 +2,7 @@
 A first person horror game, orignally made for Codejam V6 hosted by OSDC.
 
 ## About the Game
-After a string of missing person cases associated with The Big J University, you a detective are given full control to investigate the University and find out the truth. <br><br>
+After a string of missing person cases associated with The Big J University, you, a big brain 200 IQ detective are given full control to investigate the University and find out the truth. <br><br>
 Explore the campus during the day, and keep watching during the night.<br>
 *But always remember, the Big T.....is big. and bad. and always watching. and evil. and hungry.*
 
